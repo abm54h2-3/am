@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mina and Ash</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#000;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Inter',sans-serif;
+  overflow:hidden;
+  position:relative;
+}
+
+/* top line */
+body::before{
+  content:'';
+  position:absolute;
+  top:2px;
+  left:0;
+  width:100%;
+  height:1px;
+  background:rgba(255,255,255,0.08);
+}
+
+/* background glow */
+body::after{
+  content:'';
+  position:absolute;
+  width:500px;
+  height:500px;
+  background:radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
+  filter:blur(70px);
+}
+
+/* wrapper */
+
+.wrapper{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* title */
+
+.title{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  margin-bottom:32px;
+}
+
+.name{
+  font-family:'Alex Brush', cursive;
+  font-size:64px;
+  color:white;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.95),
+    0 0 25px rgba(255,255,255,0.25),
+    0 0 55px rgba(255,255,255,0.08);
+}
+
+.and{
+  color:white;
+  font-size:32px;
+  font-weight:700;
+  letter-spacing:1px;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.4);
+}
+
+/* main timer panel */
+
+.panel{
+  width:260px;
+
+  padding:24px 20px;
+
+  border-radius:34px;
+
+  background:rgba(255,255,255,0.04);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 0 40px rgba(255,255,255,0.12),
+    0 0 90px rgba(255,255,255,0.10),
+    0 0 180px rgba(255,255,255,0.08),
+    inset 0 0 30px rgba(255,255,255,0.03);
+
+  position:relative;
+}
+.panel::before{
+  content:'';
+
+  position:absolute;
+
+  inset:-40px;
+
+  border-radius:50px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.18),
+      transparent 70%
+    );
+
+  filter:blur(45px);
+
+  z-index:-1;
+}
+/* timer blocks */
+
+.block{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-bottom:22px;
+}
+
+.block:last-child{
+  margin-bottom:0;
+}
+
+/* number box */
+
+.number-box{
+  width:160px;
+  height:86px;
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(70,70,70,0.45),
+      rgba(40,40,40,0.30)
+    );
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  box-shadow:
+    inset 0 1px 10px rgba(255,255,255,0.03),
+    inset 0 -2px 12px rgba(0,0,0,0.55),
+    0 0 12px rgba(255,255,255,0.03);
+}
+
+/* numbers */
+
+.number{
+  color:white;
+  font-size:28px;
+  font-weight:700;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.15);
+}
+
+.number{
+  color:white;
+  font-family:Consolas, monospace;
+  font-size:24px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+/* labels */
+
+.label{
+  margin-top:12px;
+  color:white;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:1px;
+  opacity:0.92;
+}
+
+/* mobile */
+
+@media(max-width:600px){
+
+  .name{
+    font-size:46px;
+  }
+
+  .and{
+    font-size:22px;
+  }
+
+  .title{
+    gap:12px;
+  }
+
+  .panel{
+    transform:scale(0.92);
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <div class="title">
+    <div class="name">Mina</div>
+    <div class="and">and</div>
+    <div class="name">Ash</div>
+  </div>
+
+  <div class="panel">
+
+    <div class="block">
+      <div class="number-box">
+        <div class="number" id="months">0</div>
+      </div>
+      <div class="label">Months</div>
+    </div>
+
+    <div class="block">
+      <div class="number-box">
+        <div class="number" id="weeks">0</div>
+      </div>
+      <div class="label">Weeks</div>
+    </div>
+
+    <div class="block">
+      <div class="number-box">
+        <div class="number" id="days">0</div>
+      </div>
+      <div class="label">Days</div>
+    </div>
+
+    <div class="block">
+      <div class="number-box">
+        <div class="number" id="hours">0</div>
+      </div>
+      <div class="label">Hours</div>
+    </div>
+
+    <div class="block">
+      <div class="number-box">
+        <div class="number" id="minutes">0</div>
+      </div>
+      <div class="label">Minutes</div>
+    </div>
+
+    <div class="block">
+      <div class="number-box">
+        <div class="number" id="seconds">0</div>
+      </div>
+      <div class="label">Seconds</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const startDate = new Date("2025-07-17T00:00:00");
+
+function updateTimer(){
+
+  const now = new Date();
+  const diff = now - startDate;
+
+  const totalSeconds = Math.floor(diff / 1000);
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  const totalHours = Math.floor(totalMinutes / 60);
+  const totalDays = Math.floor(totalHours / 24);
+  const totalWeeks = Math.floor(totalDays / 7);
+  const totalMonths = Math.floor(totalDays / 30.44);
+
+  document.getElementById("months").innerText = totalMonths;
+  document.getElementById("weeks").innerText = totalWeeks;
+  document.getElementById("days").innerText = totalDays;
+  document.getElementById("hours").innerText = totalHours;
+  document.getElementById("minutes").innerText = totalMinutes;
+  document.getElementById("seconds").innerText = totalSeconds;
+}
+
+updateTimer();
+setInterval(updateTimer,1000);
+
+</script>
+
+</body>
+</html>
